@@ -73,16 +73,17 @@ if matrix_ops != "None":
     matrix_b = st.text_area("Enter Matrix B (if applicable):")
 
     try:
-        mat_a = np.matrix([list(map(float, row.split(','))) for row in matrix_a.split(';')])
+        if matrix_a:
+            mat_a = np.array([list(map(float, row.strip().split(','))) for row in matrix_a.strip().split(';')])
         if matrix_b:
-            mat_b = np.matrix([list(map(float, row.split(','))) for row in matrix_b.split(';')])
+            mat_b = np.array([list(map(float, row.strip().split(','))) for row in matrix_b.strip().split(';')])
 
         if matrix_ops == "Addition":
             st.write("Result (A + B):")
             st.write(mat_a + mat_b)
         elif matrix_ops == "Multiplication":
             st.write("Result (A * B):")
-            st.write(mat_a * mat_b)
+            st.write(np.dot(mat_a, mat_b))
         elif matrix_ops == "Determinant":
             st.write("Determinant of A:")
             st.write(np.linalg.det(mat_a))
